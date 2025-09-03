@@ -1,34 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom'
+import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes'
 
-function App() {
-  const [count, setCount] = useState(0)
+import Layout from './components/Layout'
+import Landing from './pages/Landing/Landing'
+import Signup from './pages/Auth/Signup'
+import SignupVerify from './pages/Auth/SignupVerify'
+import Login from './pages/Auth/Login'
+import LoginVerify from './pages/Auth/LoginVerify'
+import Username from './pages/Auth/Username'
+import Feed from './pages/Feed/Feed'
+
+
+const App = () => {
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path='/' element={<Layout />}>
+        <Route index element={<Landing />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/signup/verify' element={<SignupVerify />} />
+        <Route path='/username' element={<Username />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/login/verify' element={<LoginVerify />} />
+        <Route path='/feed' element={<ProtectedRoutes><Feed /></ProtectedRoutes>} />
+      </Route>
+    )
+  )
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <RouterProvider router={router}>
+      <Layout />
+    </RouterProvider>
   )
 }
 
