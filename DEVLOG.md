@@ -1,4 +1,4 @@
-## [03-09-2025]
+### [03-09-2025]
 
 Work Done: 
     1. Downloaded Dependencies for both Backend and Frontend.
@@ -20,7 +20,7 @@ To-Do:
     1. Frontend Setups and Basic Page Building.
 
 
-## [04-09-2025]
+### [04-09-2025]
 
 Work Done:
 
@@ -42,3 +42,24 @@ Problems:
 To-Do:
     1. Build the required APIs for Login Fetaures.
     2. Connect the Backend and Frontend.
+
+### [05-09-2025]
+
+Work done:
+    1. Built a Model, **pendingLoginModel**, which stores the OTP and its Expiry Time for the applicants who applied for Login.
+    2. Built 3 APIs.
+            i. **/pendingLogin**: This API will check and validate the user based on email and password. It also performs the 2-Step verification path, so it generates and sends the OTP to the user and store it to **pendingLoginModel**.
+            ii. **/login**: This API will find the user and assign a Token that helps to grant the access of application to the user.
+            iii. **/getUser**: This API will find the document totally based on username.
+    3. Integrated all 3 APIs to the Frontend. Built the Dashboard only with the username, name.
+
+Problems:
+    1. Problems arrived when I tried to get the name out off 'user' useState. It sometimes shows me undefined but at last adding a ternary operator(?), it resolve.
+
+To-Do:
+    1. Build the AuthMiddleware, Contest Model, Modifiy the User Model for separating set of users as 'User' & 'Organizer'. I am not clarified with the roles, but I will figure it out.
+    2. Build the respective Frontend Routes and pages.
+
+Achievments:
+    After 3 days of consistent development, I built 6 Auth APIs (Signup, Login & Fetch User), set up both backend & frontend routes, designed minimal but effective UI/UX.
+    While building this project, I figured out why real-world products uses 'username' in there application over 'email/phone'. Although 'email/phone' helps developer to easily access the user documents from the Model but it becomes more vulnerable while forwarding the data to the frontend. But the 'username' will act like an unique key which will help me to find the accurate document like 'email/phone'. Unlike 'email/phone', it will secure, because it doesnot deal will direct and personal details.

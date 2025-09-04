@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
 
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: "",
         password: ""
@@ -13,10 +14,24 @@ const Login = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         try{
-            navigate('/login/verify');
+            const response = await fetch("http://localhost:3000/api/users/pendinglogin",{
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            const data = await response.json();
+            if(response.ok){
+                localStorage.setItem("pendingEmail", data.email);
+                alert(data.message);
+                navigate(data.redirectTo);
+            }
+            alert(data.message);
         }
         catch(err){
-
+            alert("Frontend Error");
+            console.log(`Error: ${err.message}`);
         }
     }
 

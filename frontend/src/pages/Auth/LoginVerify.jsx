@@ -19,10 +19,27 @@ const LoginVerify = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         try{
-            navigate('/username');
+            const response = await fetch("http://localhost:3000/api/users/login",{
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            const data = await response.json();
+            if(response.ok){
+                localStorage.removeItem("pendingEmail");
+                localStorage.setItem("user", JSON.stringify(data.user));
+                localStorage.setItem("token", JSON.stringify(data.token));
+
+                alert(data.message);
+                navigate(data.redirectTo);
+            }
+            alert(data.message);
         }
         catch(err){
-
+            alert('Frontend Error');
+            console.log(`Error: ${err.message}`);
         }
     }
 

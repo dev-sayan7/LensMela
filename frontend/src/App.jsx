@@ -10,6 +10,7 @@ import Login from './pages/Auth/Login'
 import LoginVerify from './pages/Auth/LoginVerify'
 import Username from './pages/Auth/Username'
 import Feed from './pages/Feed/Feed'
+import Profile from './pages/Profile/Profile'
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/login/verify' element={<LoginVerify />} />
         <Route path='/feed' element={<ProtectedRoutes><Feed /></ProtectedRoutes>} />
+        <Route path='/profile/:username' element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
       </Route>
     )
   )
