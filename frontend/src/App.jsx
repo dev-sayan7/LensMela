@@ -11,6 +11,7 @@ import LoginVerify from './pages/Auth/LoginVerify'
 import Username from './pages/Auth/Username'
 import Feed from './pages/Feed/Feed'
 import Profile from './pages/Profile/Profile'
+import OrganizerForm from './pages/Auth/OrganizerForm'
 
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
         <Route path='/login/verify' element={<LoginVerify />} />
         <Route path='/feed' element={<ProtectedRoutes><Feed /></ProtectedRoutes>} />
         <Route path='/profile/:username' element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
+        <Route path='/apply-for-organizer' element={<ProtectedRoutes><OrganizerForm /></ProtectedRoutes>} />
       </Route>
     )
   )

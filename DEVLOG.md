@@ -63,3 +63,19 @@ To-Do:
 Achievments:
     After 3 days of consistent development, I built 6 Auth APIs (Signup, Login & Fetch User), set up both backend & frontend routes, designed minimal but effective UI/UX.
     While building this project, I figured out why real-world products uses 'username' in there application over 'email/phone'. Although 'email/phone' helps developer to easily access the user documents from the Model but it becomes more vulnerable while forwarding the data to the frontend. But the 'username' will act like an unique key which will help me to find the accurate document like 'email/phone'. Unlike 'email/phone', it will secure, because it doesnot deal will direct and personal details.
+
+### [06-09-2025]
+
+Work Done:
+    1. Built the **contestModel** for storing the Contest Details.
+    2. Modified **'userModel'** with 'role' ('User', 'Organizer') and isVerified(Boolean).
+    3. Modified the User Panel/Dashboard introduced a feature for applying as Organizer who had rights to create the Contests.
+    4. Built the AuthMiddleware **'protect'** and API **'applyAsOrganizer'** for validating and verifying the user as the Organizer.
+    5. Built the required Route with **protect**.
+    6. Built the backend route as **'/apply-for-organizer'**.
+
+Problem:
+    Today, I didn't get such big problem in coding but get little bit stucked while designing the flow of the user.
+
+To-Do:
+    Remaining works of Contest Model and its APIs with Routes and there respective frontend work.

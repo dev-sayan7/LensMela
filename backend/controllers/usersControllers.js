@@ -105,7 +105,7 @@ exports.setUsername = async(req, res) => {
         user.username = username;                                   // Setting the Username
         await user.save();                                          // Save the DB for Consistency
 
-        res.status(200).json({user: {id: user._id, name: user.name, email: user.email, username: user.username}, message: "Registration Successfully Completed.", redirectTo: '/feed'}); 
+        res.status(200).json({user: {id: user._id, name: user.name, username: user.username}, message: "Registration Successfully Completed.", redirectTo: '/feed'}); 
     }
     catch(err){
         console.error("Server Error.\nError: ", err.message);
@@ -195,7 +195,7 @@ exports.login = async(req, res) => {
         await pendingLoginModel.deleteOne({email});                    // Deleteing the instance from DB
         const user = await userModel.findOne({email: pendingUser.email});
         const token = jwt.sign({id: user._id}, process.env.JWT_TOKEN, {expiresIn: '1d'}); // Token Creation
-        return res.status(200).json({user: {id: user._id, name: user.name, email: user.email, username: user.username}, token, message: "User Successfully Logged In", redirectTo: '/feed'});
+        return res.status(200).json({user: {id: user._id, name: user.name, username: user.username}, token, message: "User Successfully Logged In", redirectTo: '/feed'});
     }
     catch(err){
         console.error("Server Error.\nError: ", err.message);
@@ -213,7 +213,36 @@ exports.getUser = async(req, res) => {
         if(!user){
             return res.json({ message: "No User available for the username"});
         }
-        res.json({user: {id: user._id, name: user.name, email: user.email, username: user.username}})
+        res.json({user: {id: user._id, name: user.name, username: user.username, role: user.role, isVerified: user.isVerified}})
+    }
+    catch(err){
+        console.error("Server Error.\nError: ", err.message);
+        res.status(500).json({err: true, message: "Server Error"}); // Server Error Status
+    }
+}
+
+exports.applyAsOrganizer = async(req, res) => {
+    try{
+        const {email} = req.body;
+        if(!email){
+            return res.status(401).json({message: "All fields are required."});
+        }
+        const user = await userModel.findOne({email});
+        if(!user){
+            return res.status(401).json({message: "User not Found"});
+        }
+        if(user.isVerified || user.role === 'Organizer'){
+            return res.status(409).json({message: "You are already verified Organizer"});
+        }
+        if(user._id.toString() !== req.user){
+            return res.status(401).json({message: "Enter the email by which you created the following account"});
+        }
+        user.isVerified = true;
+        user.role = 'Organizer';
+
+        await user.save();
+
+        res.status(200).json({message: "Account Verified", redirectTo: -1});
     }
     catch(err){
         console.error("Server Error.\nError: ", err.message);

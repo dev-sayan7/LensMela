@@ -18,10 +18,19 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    role:{
+        type: String,
+        enum: ['User', 'Organizer'],
+        default: 'User'
+    },
+    isVerified:{
+        type: Boolean,
+        default: false
+    },
     createdAt: {
         type: Date
     }
-    
+
 });
 
 module.exports = mongoose.model('userModel', userSchema);

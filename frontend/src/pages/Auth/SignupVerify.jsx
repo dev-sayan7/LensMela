@@ -33,7 +33,7 @@ const SignupVerify = () => {
                 localStorage.setItem("token", JSON.stringify(data.token));
 
                 alert(data.message);
-                navigate(data.redirectTo);
+                window.location.href = data.redirectTo;
             }
             alert(data.message);
         }
