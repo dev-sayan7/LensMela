@@ -9,8 +9,9 @@ connectDB();
 
 const cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/usersRoutes');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/usersRoutes');
+const contestRouter =  require('./routes/contestRoutes');
 
 var app = express();
 
@@ -28,5 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/contests', contestRouter);
 
 module.exports = app;

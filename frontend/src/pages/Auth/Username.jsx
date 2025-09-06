@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 
 const Username = () => {
 
-    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: JSON.parse(localStorage.getItem("email")),
         username: ""
@@ -28,7 +26,7 @@ const Username = () => {
                 localStorage.setItem("user", JSON.stringify(data.user));
                 
                 alert(data.message);
-                navigate(data.redirectTo);
+                window.location.href = data.redirectTo;
             }
             alert(data.message);
         }

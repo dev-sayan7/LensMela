@@ -9,21 +9,26 @@ const contestSchema = new mongoose.Schema({
         type: String,
     },
     startDate:{
-        type: Date
+        type: Date,
+        required: true
     },
     endDate:{
-        type: Date
+        type: Date,
+        required: true
     },
     participants:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'userModel'
     }],
-    createdOn:{
-        type: Date
-    },createdBy:{
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'userModel',
+        required: true
+    },
+    posts:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'userModel'
-    }
-});
+    }]
+},{timestamps: true});
 
 module.exports = mongoose.model("contestModel", contestSchema);

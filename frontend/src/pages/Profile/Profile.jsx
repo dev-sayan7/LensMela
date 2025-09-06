@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import UserData from './UserData';
 import { MdLeaderboard, MdSettings, MdDelete } from "react-icons/md";
-import { FaTrophy, FaBell, FaUserTie } from "react-icons/fa";
+import { FaTrophy, FaBell, FaUserTie, FaBullhorn } from "react-icons/fa";
 
 const Profile = () => {
 
@@ -32,8 +32,9 @@ const Profile = () => {
   return (
     <div className='w-full h-auto pt-[70px] pb-[10px] flex flex-col justify-start items-center'>
         <UserData user={user} />
-        <Link className='mx-[10px] w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center ' >My Contests</Link>
+        {user.role === 'Organizer' ? <Link to={'/contest/create'} className='mx-[10px] w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center ' >Create Contest + </Link> : null}
         <div className='m-[10px] pl-[20px] w-[350px] bg-gray-200 h-auto rounded-[10px] '>
+            <p className='my-[10px] w-full h-[30px] text-[16px] font-medium flex justify-start items-center gap-[10px] '><FaBullhorn className='text-xl' />My Contests</p>
             <p className='my-[10px] w-full h-[30px] text-[16px] font-medium flex justify-start items-center gap-[10px] '><MdLeaderboard className='text-xl' />Leaderboard</p>
             <Link to={'/apply-for-organizer'} className='my-[10px] w-full h-[30px] text-[16px] font-medium flex justify-start items-center gap-[10px] '><FaUserTie className='text-xl' />Apply as Contest Organizer</Link>
             <p className='my-[10px] w-full h-[30px] text-[16px] font-medium flex justify-start items-center gap-[10px] '><FaTrophy className='text-xl' />Achievements & Badges</p>

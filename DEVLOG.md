@@ -79,3 +79,16 @@ Problem:
 
 To-Do:
     Remaining works of Contest Model and its APIs with Routes and there respective frontend work.
+
+### [07-09-2025]
+
+Work Done:
+    1. Modified the **contestModel** with the startDate and endDate by making it required.
+    2. Built the **createContest** API endpoint and introduced its respective Routing paths **/create**.
+    3. Built the form UI/UX for ContestCreation Form.
+
+Problem:
+    Today I learnt about how I can save the Date(String Format) in the Database by converting the Date into Object Format. For past 2 days the progress looks slow. But I will try my best to be Consistent. Thankyou.
+
+To-Do:
+    Lots of Work Remained. Next I will create the Read Functionalities of Contest (**GET**). Along with the User side enroll functionalities. Building the Post and Photo Model in next 2-3 days.
