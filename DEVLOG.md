@@ -92,3 +92,17 @@ Problem:
 
 To-Do:
     Lots of Work Remained. Next I will create the Read Functionalities of Contest (**GET**). Along with the User side enroll functionalities. Building the Post and Photo Model in next 2-3 days.
+
+### [08-09-2025]
+
+Work Done:
+    1. Build the APIs (**getContests** & **getContestById**) for performing read operations.
+        i. **getContests**: Used for fetching all the contests.
+        ii. **getContestById**: Used for fetching the contest using id from 'params'.
+    2. Built the frontend for rendering the Contest Details via cards.
+
+Problem:
+    Yesterday, I deal with storing of the Date, today I deal with the usage of that Dates from the database for rendering them, dividing the contests in 'Upcoming', 'Ongoing' & 'Ended' based of the dates.
+
+To-Do:
+    Post Creation and Photo Models are the very next tasks.

@@ -105,7 +105,7 @@ exports.setUsername = async(req, res) => {
         user.username = username;                                   // Setting the Username
         await user.save();                                          // Save the DB for Consistency
 
-        res.status(200).json({user: {id: user._id, name: user.name, username: user.username}, message: "Registration Successfully Completed.", redirectTo: '/feed'}); 
+        res.status(200).json({user: {id: user._id, name: user.name, username: user.username, role: user.role}, message: "Registration Successfully Completed.", redirectTo: '/feed'}); 
     }
     catch(err){
         console.error("Server Error.\nError: ", err.message);
@@ -195,7 +195,7 @@ exports.login = async(req, res) => {
         await pendingLoginModel.deleteOne({email});                    // Deleteing the instance from DB
         const user = await userModel.findOne({email: pendingUser.email});
         const token = jwt.sign({id: user._id}, process.env.JWT_TOKEN, {expiresIn: '1d'}); // Token Creation
-        return res.status(200).json({user: {id: user._id, name: user.name, username: user.username}, token, message: "User Successfully Logged In", redirectTo: '/feed'});
+        return res.status(200).json({user: {id: user._id, name: user.name, username: user.username, role: user.role}, token, message: "User Successfully Logged In", redirectTo: '/feed'});
     }
     catch(err){
         console.error("Server Error.\nError: ", err.message);

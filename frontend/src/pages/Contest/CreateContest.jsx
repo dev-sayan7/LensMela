@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const CreateContest = () => {
 
+    const navigate = useNavigate();
     const [startDate, setStartDate] = useState({
         date: "",
         month: "",
@@ -11,7 +12,7 @@ const CreateContest = () => {
     const handleStartDate = (e) => {
         setStartDate({...startDate, [e.target.name]: e.target.value});
     }
-    const sDate = `${startDate.year}-${startDate.month}-${startDate.date}`;
+    
 
     const [endDate, setEndDate] = useState({
         date: "",
@@ -21,20 +22,30 @@ const CreateContest = () => {
     const handleEndDate = (e) => {
         setEndDate({...endDate, [e.target.name]: e.target.value});
     }
-    const eDate = `${endDate.year}-${endDate.month}-${endDate.date}`;
 
     const [formData, setFormData] = useState({
         title: "",
         description: "",
-        startDate: sDate,
-        endDate: eDate
     });
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
     }
+    let contestData;
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const sDate = `${startDate.year}-${startDate.month}-${startDate.date}`; 
+        const eDate = `${endDate.year}-${endDate.month}-${endDate.date}`;
+
+        contestData = {
+            title: formData.title,
+            description: formData.description,
+            startDate: sDate,
+            endDate: eDate
+        }
+
         try{
             const response = await fetch("http://localhost:3000/api/contests/create", {
                 method: "POST",
@@ -42,10 +53,14 @@ const CreateContest = () => {
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                     'Content-type': 'application/json',
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(contestData)
             });
             const data = await response.json();
-            data ? console.log(data) : console.log('Fuck off')
+            if(response.ok){
+                alert(data.message);
+                navigate(data.redirectTo);
+            }
+            alert(data.message);
         }
         catch(err){
             alert("Frontend Error");

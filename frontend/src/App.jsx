@@ -13,7 +13,8 @@ import Feed from './pages/Feed/Feed'
 import Profile from './pages/Profile/Profile'
 import OrganizerForm from './pages/Auth/OrganizerForm'
 import CreateContest from './pages/Contest/CreateContest'
-
+import Contests from './pages/Contest/Contests'
+import ContestPage from './pages/Contest/ContestPage'
 
 const App = () => {
 
@@ -30,6 +31,8 @@ const App = () => {
         <Route path='/profile/:username' element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
         <Route path='/apply-for-organizer' element={<ProtectedRoutes><OrganizerForm /></ProtectedRoutes>} />
         <Route path='/contest/create' element={<ProtectedRoutes><CreateContest /></ProtectedRoutes>} />
+        <Route path='/contests' element={<ProtectedRoutes><Contests /></ProtectedRoutes>} />
+        <Route path='/contest/:contestId' element={<ProtectedRoutes><ContestPage /></ProtectedRoutes>} />
       </Route>
     )
   )
