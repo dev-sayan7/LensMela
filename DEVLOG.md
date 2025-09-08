@@ -106,3 +106,19 @@ Problem:
 
 To-Do:
     Post Creation and Photo Models are the very next tasks.
+
+### [09-09-2025]
+
+Work Done:
+    Today I did one of the most vital work of my project, that is the Post Creation.
+    1. I built the **postModel** that contains the data of each and every post.
+    2. Next set up the **Cloudinary** (for Cloud Stroage of Images) and **Multer** (for File management).
+    3. I build the **createPost** API for the creation of the Post.
+    4. Set up the route for **createPost**.
+    5. Built the Frontend Post Creation Form and Learned how to manage file handling using the *new* **FormData()**.
+
+Problem & Learnings:
+    Today I took help of ChatGPT to learn topics like Frontend File Handling and How can I set up the **Multer** and **Cloudinary**. Being honest I used setup of Multer and Cloudinary for my Learning Management System Project but I was not able to recall it so I used the ChatGPT. It structured how can I setup the **Cloudinary**, **Multer**, How can I get the user input (*file*) and upload it in Cloudinary.
+
+To-Do:
+    One of the most vital things are done. Now the very next things are to make the voting system and set up the UI/UX.

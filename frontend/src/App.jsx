@@ -15,6 +15,7 @@ import OrganizerForm from './pages/Auth/OrganizerForm'
 import CreateContest from './pages/Contest/CreateContest'
 import Contests from './pages/Contest/Contests'
 import ContestPage from './pages/Contest/ContestPage'
+import PostForm from './pages/Post/PostForm'
 
 const App = () => {
 
@@ -33,6 +34,7 @@ const App = () => {
         <Route path='/contest/create' element={<ProtectedRoutes><CreateContest /></ProtectedRoutes>} />
         <Route path='/contests' element={<ProtectedRoutes><Contests /></ProtectedRoutes>} />
         <Route path='/contest/:contestId' element={<ProtectedRoutes><ContestPage /></ProtectedRoutes>} />
+        <Route path='/contest/:contestId/post' element={<ProtectedRoutes><PostForm /></ProtectedRoutes>} />
       </Route>
     )
   )

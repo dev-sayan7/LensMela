@@ -55,7 +55,7 @@ const ContestPage = () => {
             <p>{contest?.participants?.length} Particiapnts</p>
         </div>
 
-        {contest?.createdBy?.role ? <Link className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Leaderboard</Link> : <Link className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Post</Link>}
+        {JSON.parse(localStorage.getItem("user")).role === "Organizer" ? <Link className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Leaderboard</Link> : <Link to={`/contest/${contestId}/post`} className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Post Your Image</Link>}
         <PostPage posts={contest?.posts} />
     </div>
   )
