@@ -27,7 +27,7 @@ const contestSchema = new mongoose.Schema({
     },
     posts:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'userModel'
+        ref: 'postModel'
     }]
 },{timestamps: true});
 

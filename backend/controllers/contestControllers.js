@@ -46,7 +46,17 @@ exports.getContestById = async(req, res) => {
         if(!c){
             return res.status(400).json({message: "Contest not found!"});
         }
-        const contest = await c.populate('createdBy', '_id name isVerified role');  // Populating the metadata.
+        await c.populate('createdBy', '_id name isVerified role');      // Population of the creator
+        await c.populate({
+                path: 'posts', 
+                select: '_id imageURL imageMeta caption createdBy vote',
+                populate: {                                         // Nested Population
+                    path: 'createdBy',
+                    select: '_id name isVerified role'
+                }
+             }); // Populating the metadata of Post.
+
+        const contest = c;
         res.status(200).json({contest});
     }
     catch(err){

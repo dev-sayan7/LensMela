@@ -36,7 +36,7 @@ const ContestPage = () => {
     }
 
   return (
-    <div className='w-full h-full pt-[70px] pb-[10px] flex flex-col justify-start items-center'>
+    <div className='w-full h-auto pt-[70px] pb-[10px] flex flex-col justify-start items-center'>
         <div className=' p-[10px] mb-[10px] w-[350px] h-auto border border-gray-400 rounded-[10px] flex flex-col justify-center items-start '>
             <h1 className='text-3xl font-bold'>{contest?.title}</h1>
             <h3 className='ml-[10px] text-md text-gray-400'>{contest?.description}</h3>
@@ -55,7 +55,7 @@ const ContestPage = () => {
             <p>{contest?.participants?.length} Particiapnts</p>
         </div>
 
-        {JSON.parse(localStorage.getItem("user")).role === "Organizer" ? <Link className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Leaderboard</Link> : <Link to={`/contest/${contestId}/post`} className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Post Your Image</Link>}
+        {JSON.parse(localStorage.getItem("user")).role === "Organizer" ? <Link className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Leaderboard</Link> : <Link className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Post Your Image</Link>}
         <PostPage posts={contest?.posts} />
     </div>
   )

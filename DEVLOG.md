@@ -122,3 +122,18 @@ Problem & Learnings:
 
 To-Do:
     One of the most vital things are done. Now the very next things are to make the voting system and set up the UI/UX.
+
+
+### [10-09-2025]
+
+Work Done:
+    Today is 7th day of being consistent to push my code and learning journey in GitHub. Today I was not feeling well but I somehow showed up.
+    1. Built the Post Display Card in frontend and Modified the **getContestById** implemented the *posts* population for displaying the Posts in the application.
+
+Problems & Learnings:
+    Today I learned that there is a free designing technique or say card placement technique based on the aspect ratio of the image. This technique is called *'Masonry Design Technique'*, the technique that is widely used in Pinterest like platforms.
+
+To-Do:
+    Now Next target is building an effective voting system.
+    
+*Short Note: Sometimes my 'DEVLOG.md' may look or sound like Cringe but its my own story how I tackle my obstacles and showing up for the thing I build not only by the rush of passion but also with the sense of responsibilities towards it. Thank you.*  I 
