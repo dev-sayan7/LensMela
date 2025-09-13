@@ -151,4 +151,4 @@ Problems:
     I faced problems while fetching the posts. I was unable to count the vote from the posts due to some errors, but later figure it out.
 
 To-Do: 
-    I feel that till now I had build the MVP(*Minimum Viable Product*) of this product with basic functionality. Later I will add more functionalities to build the better version. Thank you.
+    I feel that till now I almost build the MVP(*Minimum Viable Product*) of this product with basic functionality. Later I will add more functionalities like(Contest LifeCycle, Winner Logic etc.) to build the better version. Thank you.
