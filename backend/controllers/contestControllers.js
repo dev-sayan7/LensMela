@@ -110,3 +110,30 @@ exports.createPost = async(req, res) => {
         res.status(500).json({err: true, message: "Server Error"}); // Server Error Status
     }
 }
+
+exports.leaderboard = async(req, res) => {
+    try{
+        const {contestId} = req.params;
+        
+        const contest = await contestModel.findById(contestId).populate('createdBy', '_id name').populate({
+            path: 'posts', 
+            select: '_id createdBy vote',
+            populate: {
+                path: 'createdBy',
+                select: 'name'
+            }
+        });
+        if(!contest){
+            return res.status(400).json({message: "No Contest Found!"})
+        }
+
+        let posts = contest.posts.sort((a, b) => (b.vote.length - a.vote.length))
+
+        res.status(200).json({contest: contest, posts: posts});
+
+    }
+    catch(err){
+        console.error("Server Error.\nError: ", err.message);
+        res.status(500).json({err: true, message: "Server Error"}); // Server Error Status
+    }
+}

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const PostForm = () => {
 
+    const navigate = useNavigate();
     const {contestId} = useParams();
     const [postData, setPostData] = useState({
         caption: "",
@@ -36,6 +37,11 @@ const PostForm = () => {
                 body: formData
             });
             const data = await response.json();
+
+            if(response.ok){
+                navigate(data.redirectTo);
+            }
+            alert(data.message);
         }
         catch(err){
             alert("Frontend Error");

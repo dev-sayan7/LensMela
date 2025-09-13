@@ -136,4 +136,19 @@ Problems & Learnings:
 To-Do:
     Now Next target is building an effective voting system.
     
-*Short Note: Sometimes my 'DEVLOG.md' may look or sound like Cringe but its my own story how I tackle my obstacles and showing up for the thing I build not only by the rush of passion but also with the sense of responsibilities towards it. Thank you.*  I 
+*Short Note: Sometimes my 'DEVLOG.md' may look or sound like Cringe but its my own story how I tackle my obstacles and showing up for the thing I build not only by the rush of passion but also with the sense of responsibilities towards it. Thank you.*
+
+### [14-09-2025]
+
+Work Done:
+    After Completion of My Exams I am here building my product again.
+    Today I built, 
+    1. The Voting Logic, where multiple users can vote a single post but a single user can only vote an image for one time and it cannot withdraw its vote.
+    2. Also build the Leaderboard for the contest result.
+    3. All the Routes and the Frontend Stuffs together.
+
+Problems:
+    I faced problems while fetching the posts. I was unable to count the vote from the posts due to some errors, but later figure it out.
+
+To-Do: 
+    I feel that till now I had build the MVP(*Minimum Viable Product*) of this product with basic functionality. Later I will add more functionalities to build the better version. Thank you.

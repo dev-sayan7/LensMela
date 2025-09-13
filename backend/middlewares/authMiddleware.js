@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const userModel = require('../models/users/userModel');
 
 exports.protect = async(req, res, next) => {
     try{
@@ -20,6 +21,22 @@ exports.protect = async(req, res, next) => {
         }
 
         req.user = decoded.id;
+        next();
+    }
+    catch(err){
+        console.error("Server Error.\nError: ", err.message);
+        res.status(500).json({err: true, message: "Server Error"}); // Server Error Status
+    }
+}
+
+exports.organizerCheck = async(req, res, next) => {
+    try{
+        const userId = req.user;
+        const user = await userModel.findById(userId);
+        if(!user || user.role !== 'Organizer'){
+            return res.status(400).json({message: "Access Denied!"});
+        }
+
         next();
     }
     catch(err){

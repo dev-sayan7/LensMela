@@ -8,7 +8,7 @@ import { FaTrophy, FaBell, FaUserTie, FaBullhorn } from "react-icons/fa";
 const Profile = () => {
 
     const { username } = useParams();
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null);
 
     useEffect(()=>{
 
@@ -20,14 +20,18 @@ const Profile = () => {
                 }
             });
             const data = await response.json();
-            if(response.ok){
+            setTimeout(() => {
                 setUser(data.user);
-            }
+            }, 2000);
         }
 
         fetchUser();
 
     }, [username]);
+
+    if(!user){
+        return <div className='pt-[70px] flex justify-center items-center'>Loading ...</div>
+    }
 
   return (
     <div className='w-full h-auto pt-[70px] pb-[10px] flex flex-col justify-start items-center'>

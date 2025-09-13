@@ -8,6 +8,7 @@ const ContestPage = () => {
 
     const {contestId} = useParams();
     const [contest, setContest] = useState(null);
+    const [posts, setPosts] = useState(null);
 
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -25,6 +26,7 @@ const ContestPage = () => {
             const data = await response.json();
             setTimeout(()=>{
                 setContest(data.contest);
+                setPosts(data.contest.posts);
             }, 2000);
         }
 
@@ -55,8 +57,14 @@ const ContestPage = () => {
             <p>{contest?.participants?.length} Particiapnts</p>
         </div>
 
-        {JSON.parse(localStorage.getItem("user")).role === "Organizer" ? <Link className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Leaderboard</Link> : <Link className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Post Your Image</Link>}
-        <PostPage posts={contest?.posts} />
+        {JSON.parse(localStorage.getItem("user")).role === "Organizer" ? 
+        <Link to={`/contest/${contestId}/leaderboard`} className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Leaderboard</Link> :
+        <div>
+            <Link to={`/contest/${contestId}/leaderboard`} className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Leaderboard</Link>
+            <Link to={`/contest/${contestId}/post`} className='mt-[10px] w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Post Your Image</Link>
+        </div> 
+        }
+        <PostPage posts={posts} setPosts={setPosts} />
     </div>
   )
 }

@@ -16,6 +16,8 @@ import CreateContest from './pages/Contest/CreateContest'
 import Contests from './pages/Contest/Contests'
 import ContestPage from './pages/Contest/ContestPage'
 import PostForm from './pages/Post/PostForm'
+import Leaderboard from './pages/Leaderboard/Leaderboard'
+import PostDetails from './pages/Post/PostDetails'
 
 const App = () => {
 
@@ -35,6 +37,8 @@ const App = () => {
         <Route path='/contests' element={<ProtectedRoutes><Contests /></ProtectedRoutes>} />
         <Route path='/contest/:contestId' element={<ProtectedRoutes><ContestPage /></ProtectedRoutes>} />
         <Route path='/contest/:contestId/post' element={<ProtectedRoutes><PostForm /></ProtectedRoutes>} />
+        <Route path='/contest/:contestId/leaderboard' element={<ProtectedRoutes><Leaderboard /></ProtectedRoutes>} />
+        <Route path='/posts/:postId' element={<ProtectedRoutes><PostDetails /></ProtectedRoutes>} />
       </Route>
     )
   )

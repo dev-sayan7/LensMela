@@ -4,7 +4,7 @@ import ContestCard from './ContestCard'
 
 const Contests = () => {
 
-    const [contestData, setContestData] = useState([])
+    const [contestData, setContestData] = useState(null)
     useEffect(() => {
         const fetchContests = async () => {
             const response = await fetch("http://localhost:3000/api/contests",{
@@ -15,7 +15,9 @@ const Contests = () => {
             });
             const data = await response.json();
             if(response.ok){
-                setContestData(data.contests);
+                setTimeout(()=>{
+                    setContestData(data.contests);
+                }, 2000);
             }
         }
 
@@ -23,10 +25,13 @@ const Contests = () => {
 
     }, []);
 
+    if(!contestData){
+        return <div className='pt-[70px] flex justify-center items-center'>Loading ...</div>
+    }
 
   return (
     <div className='w-full h-auto pt-[70px] pb-[20px] flex flex-col justify-start items-center'>
-        {contestData.map((contest) => (<ContestCard key={contest._id} contest={contest} />))}
+        {contestData.length === 0 ? <p>No Contest Listed Yet.</p> : contestData.map((contest) => (<ContestCard key={contest._id} contest={contest} />))}
     </div>
   )
 }
