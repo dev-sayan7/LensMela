@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { HiBadgeCheck } from 'react-icons/hi';
 import { BiUpvote, BiSolidUpvote } from "react-icons/bi";
 
-const PostCard = ({ post, setPosts }) => {
+const PostCard = ({ post, setPosts, sDate, eDate }) => {
+
+  const [msg, setMsg] = useState(null);
+
+  useEffect(() => {
+    if(sDate.getTime() > Date.now()){
+      setMsg("Contest Not Start Yet.");
+    }
+    if(eDate.getTime() < Date.now()){
+      setMsg("Contest has been Over");
+    }
+  }, [sDate, eDate]);
+
 
   const handleVote = async() => {
     try{
@@ -37,10 +49,19 @@ const PostCard = ({ post, setPosts }) => {
         </div>
       </div>
 
+
       <div className='px-[20px] w-full h-[50px] flex justify-between items-center'>
-        <p className='text-gray-600'>{post.vote.length} Votes</p>
-        {post.vote.includes(JSON.parse(localStorage.getItem("user")).id) ? <button disabled className='px-[10px] w-auto h-[40px] bg-gray-400 rounded-[20px] flex justify-between items-center gap-[10px] font-bold text-white'><BiSolidUpvote className='text-xl' /> Voted</button> : <button onClick={handleVote} className='px-[10px] w-auto h-[40px] bg-blue-400 rounded-[20px] flex justify-between items-center gap-[10px] font-bold text-white'><BiUpvote className='text-xl' /> Vote</button>}
+        {msg != null ? 
+        <p className='text-md text-gray-400'>{msg}</p>
+        :
+        <>
+          <p className='text-gray-600'>{post.vote.length} Votes</p>
+          {post.vote.includes(JSON.parse(localStorage.getItem("user")).id) ? <button disabled className='px-[10px] w-auto h-[40px] bg-gray-400 rounded-[20px] flex justify-between items-center gap-[10px] font-bold text-white'><BiSolidUpvote className='text-xl' /> Voted</button> : <button onClick={handleVote} className='px-[10px] w-auto h-[40px] bg-blue-400 rounded-[20px] flex justify-between items-center gap-[10px] font-bold text-white'><BiUpvote className='text-xl' /> Vote</button>}
+        </>
+        
+      }
       </div>
+      
     </div>
   )
 }

@@ -114,7 +114,6 @@ exports.createPost = async(req, res) => {
 exports.leaderboard = async(req, res) => {
     try{
         const {contestId} = req.params;
-        
         const contest = await contestModel.findById(contestId).populate('createdBy', '_id name').populate({
             path: 'posts', 
             select: '_id createdBy vote',
@@ -127,10 +126,42 @@ exports.leaderboard = async(req, res) => {
             return res.status(400).json({message: "No Contest Found!"})
         }
 
-        let posts = contest.posts.sort((a, b) => (b.vote.length - a.vote.length))
+        let posts = contest.posts.sort((a, b) => (b.vote.length - a.vote.length));
+        if(contest.startDate <= new Date() && contest.endDate >= new Date() ){
+            return res.status(200).json({contest: contest, posts: posts});
+        }
+        if(contest.endDate < Date.now()){
+            return res.status(200).json({winner: posts[0]});
+        }
 
-        res.status(200).json({contest: contest, posts: posts});
+        res.status(200).json({message: "Contest Not Start Yet"});
 
+    }
+    catch(err){
+        console.error("Server Error.\nError: ", err.message);
+        res.status(500).json({err: true, message: "Server Error"}); // Server Error Status
+    }
+}
+
+exports.myContest = async(req, res) => {
+    try{
+        const {username} = req.params;
+        const user = await userModel.findOne({ username });
+        if(!user){
+            return res.status(400).json({message: "User not Found"});
+        }
+        const contests = await contestModel.find().populate('createdBy', '_id name');
+        let myContests = [];
+        for(let i = 0; i < contests.length; i++){
+            if(contests[i].participants.map(p => p.toString()).includes(user._id.toString())){
+                myContests.push(contests[i]);
+            }
+        }
+        if(myContests.length == 0){
+            return res.status(404).json({message: "No contest Found"});
+        }
+
+        res.status(200).json({myContests});
     }
     catch(err){
         console.error("Server Error.\nError: ", err.message);

@@ -18,6 +18,7 @@ import ContestPage from './pages/Contest/ContestPage'
 import PostForm from './pages/Post/PostForm'
 import Leaderboard from './pages/Leaderboard/Leaderboard'
 import PostDetails from './pages/Post/PostDetails'
+import MyContest from './pages/Contest/MyContest'
 
 const App = () => {
 
@@ -32,6 +33,7 @@ const App = () => {
         <Route path='/login/verify' element={<LoginVerify />} />
         <Route path='/feed' element={<ProtectedRoutes><Feed /></ProtectedRoutes>} />
         <Route path='/profile/:username' element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
+        <Route path='/profile/:username/myContests' element={<ProtectedRoutes><MyContest /></ProtectedRoutes>} />
         <Route path='/apply-for-organizer' element={<ProtectedRoutes><OrganizerForm /></ProtectedRoutes>} />
         <Route path='/contest/create' element={<ProtectedRoutes><CreateContest /></ProtectedRoutes>} />
         <Route path='/contests' element={<ProtectedRoutes><Contests /></ProtectedRoutes>} />

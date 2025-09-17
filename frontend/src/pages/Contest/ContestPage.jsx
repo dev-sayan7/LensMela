@@ -57,14 +57,16 @@ const ContestPage = () => {
             <p>{contest?.participants?.length} Particiapnts</p>
         </div>
 
-        {JSON.parse(localStorage.getItem("user")).role === "Organizer" ? 
-        <Link to={`/contest/${contestId}/leaderboard`} className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Leaderboard</Link> :
-        <div>
-            <Link to={`/contest/${contestId}/leaderboard`} className='w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Leaderboard</Link>
-            <Link to={`/contest/${contestId}/post`} className='mt-[10px] w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Post Your Image</Link>
-        </div> 
-        }
-        <PostPage posts={posts} setPosts={setPosts} />
+        <div className='w-[350px] h-auto'>
+            {(new Date(contest?.startDate) > Date.now()) ? null
+              : (new Date(contest?.startDate) == Date.now() || new Date(contest?.endDate) >= Date.now()) ? 
+              <div>
+                <Link to={`/contest/${contestId}/leaderboard`} className='w-[350px] h-[40px] text-center border-2 border-blue-500 rounded-[10px] text-md font-medium flex justify-center items-center '>Leaderboard</Link>
+                {JSON.parse(localStorage.getItem("user")).role === "Organizer" ? null : <Link to={`/contest/${contestId}/post`} className='mt-[10px] w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Post Your Image</Link>}
+              </div> 
+              : <Link to={`/contest/${contestId}/leaderboard`} className='w-[350px] h-[40px] text-center border-2 border-blue-500 rounded-[10px] text-md font-medium flex justify-center items-center '>Leaderboard</Link> }
+        </div>
+        <PostPage posts={posts} setPosts={setPosts} sDate={new Date(contest?.startDate)} eDate={new Date(contest?.endDate)} />
     </div>
   )
 }

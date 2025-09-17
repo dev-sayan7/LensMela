@@ -152,3 +152,14 @@ Problems:
 
 To-Do: 
     I feel that till now I almost build the MVP(*Minimum Viable Product*) of this product with basic functionality. Later I will add more functionalities like(Contest LifeCycle, Winner Logic etc.) to build the better version. Thank you.
+
+### [17-09-2025]
+
+Work Done:
+    Today I completed rest of the MVP work with Contest Lifecycle, Winner Logic and the Vote Strcitness.
+
+Problems:
+    It was the most trickest part interms of product logic. Maintain every aspect at a same time is bit difficult. But I figure it out not completely but overall.
+
+To-Do:
+    Now I will go for Manual Flow testing. How the product works and stuffs like that. Thankyou.
