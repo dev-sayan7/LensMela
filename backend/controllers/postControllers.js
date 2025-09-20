@@ -8,7 +8,7 @@ exports.fetchPostById = async(req, res) => {
 
         const post = await postModel.findById(postId).populate('createdBy', '_id name');
         if(!post){
-            return res.status(400).json({message: "Post Not Available"});
+            return res.status(404).json({message: "Post Not Available"});
         }
 
         res.status(201).json({post: post});

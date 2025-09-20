@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import ContestDetail from './ContestDetail';
 import LeaderboardTable from './LeaderboardTable';
 import Winner from './Winner';
+import Loading from '../../components/Loading/Loading'
 
 const Leaderboard = () => {
 
@@ -16,9 +17,7 @@ const Leaderboard = () => {
         const fetchContestData = async() => {
             const response = await fetch(`http://localhost:3000/api/contests/${contestId}/leaderboard`,{
                 method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`
-                }
+                credentials: 'include'
             });
             const data = await response.json();
             if(response.ok){
@@ -39,17 +38,17 @@ const Leaderboard = () => {
     },[contestId])
 
     if(!contest && !posts && !winner && !msg){
-        return <div className='pt-[70px] w-full h-auto text-center'>Loading...</div>
+        return <Loading />
     }
 
   return (
     <div className='pt-[70px] w-full h-full flex flex-col justify-start items-center'>
-        {msg ? <div className='pt-[70px] w-full h-auto text-center'>{msg}</div> : null}
-        {contest || posts ? <>
+        {msg && <div className='pt-[70px] w-full h-auto text-center'>{msg}</div>}
+        {(contest || posts.length > 0) && (<>
             <ContestDetail contest={contest} />
             <LeaderboardTable posts={posts} />
-        </> : null}
-        {winner ? <Winner user={winner.createdBy} /> : null}
+        </>)}
+        {winner && (<Winner user={winner.createdBy} />)}
     </div>
   )
 }

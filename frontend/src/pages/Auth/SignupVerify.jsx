@@ -5,7 +5,7 @@ const SignupVerify = () => {
 
     const navigate = useNavigate();
 
-    const pendingEmail = localStorage.getItem("pendingEmail");
+    const pendingEmail = sessionStorage.getItem("pendingEmail");
     let emailuser = pendingEmail.split('@')[0];
     let str = emailuser[0] + '********' + emailuser[(emailuser.length - 1)] + '@' + pendingEmail.split('@')[1];
     
@@ -24,13 +24,13 @@ const SignupVerify = () => {
                 headers: {
                     'Content-type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData),
+                credentials: 'include'
             });
             const data = await response.json();
             if(response.ok){
-                localStorage.removeItem("pendingEmail");
-                localStorage.setItem("email", JSON.stringify(data.email));
-                localStorage.setItem("token", JSON.stringify(data.token));
+                sessionStorage.removeItem("pendingEmail");
+                sessionStorage.setItem("email", JSON.stringify(data.email));
 
                 alert(data.message);
                 window.location.href = data.redirectTo;

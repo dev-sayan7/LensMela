@@ -18,8 +18,9 @@ var app = express();
 
 app.use(cors({
     origin: 'http://localhost:5173',
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    credentials: true,
+    optionsSuccessStatus: 200
 }))
 
 app.use(logger('dev'));

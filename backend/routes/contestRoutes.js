@@ -1,7 +1,7 @@
 const express = require('express');
 const upload = require('../config/multerConfig');
 const { protect, organizerCheck } = require('../middlewares/authMiddleware');
-const { createContest, getContests, getContestById, createPost, leaderboard, myContest } = require('../controllers/contestControllers');
+const { createContest, getContests, getContestById, createPost, leaderboard, myContest, feed } = require('../controllers/contestControllers');
 const { timeline } = require('../middlewares/postMiddleware');
 const router = express.Router();
 
@@ -15,5 +15,7 @@ router.post('/:contestId/createpost', timeline, upload.fields([
 router.get('/:contestId/leaderboard', protect, leaderboard);
 
 router.get('/user/:username', protect, myContest);
+
+router.get('/new/feed', protect, feed)
 
 module.exports = router;

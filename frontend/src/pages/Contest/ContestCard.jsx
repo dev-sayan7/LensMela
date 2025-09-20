@@ -20,7 +20,7 @@ const ContestCard = ({contest}) => {
         </div>
         <div className='flex justify-center items-center gap-[5px]'>
           <div>
-            {(new Date(contest?.startDate) > Date.now()) ? <p className='flex justify-center items-center' ><GoDotFill className='text-2xl text-blue-800'/> UpComing</p>
+            {(new Date(contest?.startDate) > Date.now()) ? <p className='flex justify-center items-center' ><GoDotFill className='text-2xl text-blue-800'/> Upcoming</p>
           : (new Date(contest?.startDate) == Date.now() || new Date(contest?.endDate) >= Date.now()) ? <p className='flex justify-center items-center' ><GoDotFill className='text-2xl text-green-800'/> Ongoing</p> 
           : <p className='flex justify-center items-center' ><GoDotFill className='text-2xl text-gray-500'/> Ended</p> }
           </div> | {sDate + ' - ' + eDate}

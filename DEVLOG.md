@@ -163,3 +163,15 @@ Problems:
 
 To-Do:
     Now I will go for Manual Flow testing. How the product works and stuffs like that. Thankyou.
+
+
+### [20-09-2025]
+Work Done:
+    1. For past few days, I was working on shifting of localStorage to sessionStorage, cookie based token store, httpStatus Codes, UIUX of the product, Error Pages for effective management, Feed section with the UI/UX, API, Routes and the very vital thing Ilearnt how to make a minimal API check whether the token present or not.(not implemented but written the API and the routes).
+    2. For these periods the works seems slow but I can say now that eventually, I had successfully completed the v1 or MVP for theLensMela.
+
+Problems:
+    1. Problems during calling the '/auth/check' for the user status as logged in or not.
+
+To-Do:
+    For Now the v1 is completed and I will focus on the Responsive Design of the web.

@@ -5,7 +5,7 @@ exports.timeline = async(req, res, next) => {
     try{
         const {contestId} = req.params;
         const contest = await contestModel.findById(contestId);
-        if(contest){
+        if(!contest){
             return res.status(404).json({message: "Contest Not Found"});
         }
         const sDate = new Date(contest.startDate);
@@ -30,7 +30,7 @@ exports.voteValidate = async(req, res, next) => {
     try{
         const {postId} = req.params;
         const post = await postModel.findById(postId).populate('contest', 'startDate endDate');
-        if(post){
+        if(!post){
             return res.status(404).json({message: "Post Not Found"});
         }
         const contest = post.contest;

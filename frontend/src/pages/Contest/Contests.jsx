@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import ContestCard from './ContestCard'
+import Loading from '../../components/Loading/Loading'
 
 const Contests = () => {
 
@@ -9,9 +10,7 @@ const Contests = () => {
         const fetchContests = async () => {
             const response = await fetch("http://localhost:3000/api/contests",{
                 method: "GET",
-                headers:{
-                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-                }
+                credentials: 'include'
             });
             const data = await response.json();
             if(response.ok){
@@ -26,7 +25,7 @@ const Contests = () => {
     }, []);
 
     if(!contestData){
-        return <div className='pt-[70px] flex justify-center items-center'>Loading ...</div>
+        return <Loading />
     }
 
   return (

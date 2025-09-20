@@ -18,12 +18,10 @@ const PostCard = ({ post, setPosts, sDate, eDate }) => {
 
   const handleVote = async() => {
     try{
-      const userId = JSON.parse(localStorage.getItem('user')).id
+      const userId = JSON.parse(sessionStorage.getItem('user')).id
       const response = await fetch(`http://localhost:3000/api/posts/${post._id}/vote`,{
         method: "POST",
-        headers: {
-          'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-        }
+        credentials: 'include'
       });
       const data = await response.json();
       if(response.ok){
@@ -56,7 +54,7 @@ const PostCard = ({ post, setPosts, sDate, eDate }) => {
         :
         <>
           <p className='text-gray-600'>{post.vote.length} Votes</p>
-          {post.vote.includes(JSON.parse(localStorage.getItem("user")).id) ? <button disabled className='px-[10px] w-auto h-[40px] bg-gray-400 rounded-[20px] flex justify-between items-center gap-[10px] font-bold text-white'><BiSolidUpvote className='text-xl' /> Voted</button> : <button onClick={handleVote} className='px-[10px] w-auto h-[40px] bg-blue-400 rounded-[20px] flex justify-between items-center gap-[10px] font-bold text-white'><BiUpvote className='text-xl' /> Vote</button>}
+          {post.vote.includes(JSON.parse(sessionStorage.getItem("user")).id) ? <button disabled className='px-[10px] w-auto h-[40px] bg-gray-400 rounded-[20px] flex justify-between items-center gap-[10px] font-bold text-white'><BiSolidUpvote className='text-xl' /> Voted</button> : <button onClick={handleVote} className='px-[10px] w-auto h-[40px] bg-blue-400 rounded-[20px] flex justify-between items-center gap-[10px] font-bold text-white'><BiUpvote className='text-xl' /> Vote</button>}
         </>
         
       }

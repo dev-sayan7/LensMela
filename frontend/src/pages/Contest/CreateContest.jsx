@@ -50,10 +50,10 @@ const CreateContest = () => {
             const response = await fetch("http://localhost:3000/api/contests/create", {
                 method: "POST",
                 headers: {
-                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
                     'Content-type': 'application/json',
                 },
-                body: JSON.stringify(contestData)
+                body: JSON.stringify(contestData),
+                credentials: 'include'
             });
             const data = await response.json();
             if(response.ok){

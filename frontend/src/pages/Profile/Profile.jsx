@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import UserData from './UserData';
 import { MdLeaderboard, MdSettings, MdDelete } from "react-icons/md";
 import { FaTrophy, FaBell, FaUserTie, FaBullhorn } from "react-icons/fa";
+import Loading from '../../components/Loading/Loading';
 
 const Profile = () => {
 
@@ -15,14 +16,12 @@ const Profile = () => {
         const fetchUser = async() => {
             const response = await fetch(`http://localhost:3000/api/users/${username}`,{
                 method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`
-                }
+                credentials: 'include'
             });
             const data = await response.json();
             setTimeout(() => {
                 setUser(data.user);
-            }, 2000);
+            }, 2000)
         }
 
         fetchUser();
@@ -30,7 +29,7 @@ const Profile = () => {
     }, [username]);
 
     if(!user){
-        return <div className='pt-[70px] flex justify-center items-center'>Loading ...</div>
+        return <Loading />
     }
 
   return (

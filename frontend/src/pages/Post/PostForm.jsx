@@ -16,9 +16,7 @@ const PostForm = () => {
         const fetchContestById = async() => {
             const response = await fetch(`http://localhost:3000/api/contests/${contestId}`, {
                 method: 'GET',
-                headers:{
-                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-                }
+                credentials: 'include'
             });
             const data = await response.json();
 
@@ -61,9 +59,7 @@ const PostForm = () => {
         try{
             const response = await fetch(`http://localhost:3000/api/contests/${contestId}/createpost`,{
                 method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`
-                },
+                credentials: "include",
                 body: formData
             });
             const data = await response.json();

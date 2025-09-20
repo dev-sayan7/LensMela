@@ -3,12 +3,19 @@ import { HiBadgeCheck } from "react-icons/hi";
 
 const UserData = ({user}) => {
 
-  const logout = () => {
-    localStorage.clear();
-    window.location.href = '/';
+  const logout = async () => {
+    
+    const response = await fetch("http://localhost:3000/api/users/logout",{
+      method: "GET",
+      credentials: 'include'
+    });
+    const data = await response.json();
+    if(response.ok){
+      alert(data.message);
+      sessionStorage.clear();
+      window.location.href = '/';
+    }
   }
-
-  const name = user.name;
   
   return (
     <div className='m-[10px] py-[20px] px-[8px] w-[350px] h-auto border border-gray-500 rounded-[10px] '>

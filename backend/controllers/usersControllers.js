@@ -70,8 +70,14 @@ exports.signup = async(req, res) => {
 
         await pendingSignupModel.deleteOne({email});                    // Deleteing the instance from DB
         const user = await userModel.create({name: pendingUser.name, email: pendingUser.email, password: pendingUser.password, createdAt: Date.now()});
-        const token = jwt.sign({id: user._id}, process.env.JWT_TOKEN, {expiresIn: '1d'}); // Token Creation
-        return res.status(200).json({email: user.email, token, message: "User Successfully Signed Up", redirectTo: '/username'});
+        const token = jwt.sign({id: user._id}, process.env.JWT_TOKEN, {expiresIn: '7d'}); // Token Creation
+
+        res.status(200).cookie("token", token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "Lax",
+            maxAge: 7 * 24 * 60 * 60* 1000
+        }).json({email: user.email, message: "User Successfully Signed Up", redirectTo: '/username'});
     }
     catch(err){
         console.error("Server Error.\nError: ", err.message);
@@ -167,7 +173,6 @@ exports.pendingLogin = async(req, res) => {
 exports.login = async(req, res) => {
     try{
         const {email, OTP} = req.body;                                  // Input Gathering
-        console.log(email, OTP)
         // Input Validation
         if(!email || !OTP){
             return res.status(400).json({message: "All fields are required!!"});
@@ -194,8 +199,29 @@ exports.login = async(req, res) => {
 
         await pendingLoginModel.deleteOne({email});                    // Deleteing the instance from DB
         const user = await userModel.findOne({email: pendingUser.email});
-        const token = jwt.sign({id: user._id}, process.env.JWT_TOKEN, {expiresIn: '1d'}); // Token Creation
-        return res.status(200).json({user: {id: user._id, name: user.name, username: user.username, role: user.role}, token, message: "User Successfully Logged In", redirectTo: '/feed'});
+        const token = jwt.sign({id: user._id}, process.env.JWT_TOKEN, {expiresIn: '7d'}); // Token Creation
+
+        return res.status(200).cookie("token", token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "Lax",
+            maxAge: 7 * 24 * 60 * 60* 1000
+        }).json({user: {id: user._id, name: user.name, username: user.username, role: user.role}, message: "User Successfully Logged In", redirectTo: '/feed'});
+    }
+    catch(err){
+        console.error("Server Error.\nError: ", err.message);
+        res.status(500).json({err: true, message: "Server Error"}); // Server Error Status
+    }
+}
+
+exports.logout = async(req, res) => {
+    try{
+        res.clearCookie("token", {
+        httpOnly: true,
+        secure: false,
+        sameSite: "Lax"
+    });
+    return res.status(200).json({ message: "Logged out" });
     }
     catch(err){
         console.error("Server Error.\nError: ", err.message);

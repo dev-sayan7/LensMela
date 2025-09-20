@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { HiBadgeCheck } from "react-icons/hi";
 import { GoDotFill } from "react-icons/go";
 import PostPage from '../Post/PostPage';
+import Loading from '../../components/Loading/Loading';
 
 const ContestPage = () => {
 
@@ -19,9 +20,7 @@ const ContestPage = () => {
         const fetchContestById = async() => {
             const response = await fetch(`http://localhost:3000/api/contests/${contestId}`,{
                 method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-                }
+                credentials: 'include'
             });
             const data = await response.json();
             setTimeout(()=>{
@@ -34,7 +33,7 @@ const ContestPage = () => {
     },[])
 
     if(!contest){
-        return <div className='pt-[70px] flex justify-center items-center'>Loading ...</div>
+        return <Loading />
     }
 
   return (
@@ -62,7 +61,7 @@ const ContestPage = () => {
               : (new Date(contest?.startDate) == Date.now() || new Date(contest?.endDate) >= Date.now()) ? 
               <div>
                 <Link to={`/contest/${contestId}/leaderboard`} className='w-[350px] h-[40px] text-center border-2 border-blue-500 rounded-[10px] text-md font-medium flex justify-center items-center '>Leaderboard</Link>
-                {JSON.parse(localStorage.getItem("user")).role === "Organizer" ? null : <Link to={`/contest/${contestId}/post`} className='mt-[10px] w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Post Your Image</Link>}
+                {JSON.parse(sessionStorage.getItem("user")).role === "Organizer" ? null : <Link to={`/contest/${contestId}/post`} className='mt-[10px] w-[350px] h-[40px] text-center bg-blue-500 border-2 border-blue-500 rounded-[10px] text-md font-medium text-white flex justify-center items-center '>Post Your Image</Link>}
               </div> 
               : <Link to={`/contest/${contestId}/leaderboard`} className='w-[350px] h-[40px] text-center border-2 border-blue-500 rounded-[10px] text-md font-medium flex justify-center items-center '>Leaderboard</Link> }
         </div>

@@ -19,8 +19,13 @@ import PostForm from './pages/Post/PostForm'
 import Leaderboard from './pages/Leaderboard/Leaderboard'
 import PostDetails from './pages/Post/PostDetails'
 import MyContest from './pages/Contest/MyContest'
+import OrganizerRoutes from './components/ProtectedRoutes/OrganizerRoutes'
+import UserRoutes from './components/ProtectedRoutes/UserRoutes'
+import ErrPage403 from './components/ErrorPages/ErrPage403'
+import ErrPage404 from './components/ErrorPages/ErrPage404'
 
 const App = () => {
+  
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -35,15 +40,19 @@ const App = () => {
         <Route path='/profile/:username' element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
         <Route path='/profile/:username/myContests' element={<ProtectedRoutes><MyContest /></ProtectedRoutes>} />
         <Route path='/apply-for-organizer' element={<ProtectedRoutes><OrganizerForm /></ProtectedRoutes>} />
-        <Route path='/contest/create' element={<ProtectedRoutes><CreateContest /></ProtectedRoutes>} />
+        <Route path='/contest/create' element={<ProtectedRoutes><OrganizerRoutes><CreateContest /></OrganizerRoutes></ProtectedRoutes>} />
         <Route path='/contests' element={<ProtectedRoutes><Contests /></ProtectedRoutes>} />
         <Route path='/contest/:contestId' element={<ProtectedRoutes><ContestPage /></ProtectedRoutes>} />
-        <Route path='/contest/:contestId/post' element={<ProtectedRoutes><PostForm /></ProtectedRoutes>} />
+        <Route path='/contest/:contestId/post' element={<ProtectedRoutes><UserRoutes><PostForm /></UserRoutes></ProtectedRoutes>} />
         <Route path='/contest/:contestId/leaderboard' element={<ProtectedRoutes><Leaderboard /></ProtectedRoutes>} />
         <Route path='/posts/:postId' element={<ProtectedRoutes><PostDetails /></ProtectedRoutes>} />
+
+        <Route path='/403' element={<ErrPage403 />} />
+        <Route path='/404' element={<ErrPage404 />} />
       </Route>
     )
   )
+
 
   return (
     <RouterProvider router={router}>

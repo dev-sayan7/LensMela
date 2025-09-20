@@ -16,10 +16,11 @@ const OrganizerForm = () => {
             const response  = await fetch("http://localhost:3000/api/users/applyAsOrganizer", {
                 method: "POST",
                 headers:{
-                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                    'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem("token"))}`,
                     'Content-type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData),
+                credentials: 'include'
             });
             const data = await response.json();
             if(response.ok){

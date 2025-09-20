@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 const Username = () => {
 
     const [formData, setFormData] = useState({
-        email: JSON.parse(localStorage.getItem("email")),
+        email: JSON.parse(sessionStorage.getItem("email")),
         username: ""
     });
     const handleChange = (e) => {
@@ -17,13 +17,14 @@ const Username = () => {
                 headers: {
                     'Content-type': 'application/json',
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData),
+                credentials: "include"
             });
             const data = await response.json();
 
             if(response.ok){
-                localStorage.removeItem("email");
-                localStorage.setItem("user", JSON.stringify(data.user));
+                sessionStorage.removeItem("email");
+                sessionStorage.setItem("user", JSON.stringify(data.user));
                 
                 alert(data.message);
                 window.location.href = data.redirectTo;

@@ -19,11 +19,12 @@ const Login = () => {
                 headers: {
                     'Content-type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData),
+                credentials: 'include'
             });
             const data = await response.json();
             if(response.ok){
-                localStorage.setItem("pendingEmail", data.email);
+                sessionStorage.setItem("pendingEmail", data.email);
                 alert(data.message);
                 navigate(data.redirectTo);
             }

@@ -26,7 +26,10 @@ exports.createContest = async(req, res) => {
 
 exports.getContests = async(req, res) => {
     try{
-        const contests = await contestModel.find().populate('createdBy', '_id name');   // Getting all the contests and populating metadata.
+        const contests = await contestModel.find().populate('createdBy', '_id name');  // Getting all the contests and populating metadata.
+        if(!contests){
+            return res.status(404).json({message: "No Contests are there"});
+        }
         res.status(200).json({contests});
     }
     catch(err){
@@ -44,7 +47,7 @@ exports.getContestById = async(req, res) => {
         }
         const c = await contestModel.findById(contestId);               // Contest Searching based on id
         if(!c){
-            return res.status(400).json({message: "Contest not found!"});
+            return res.status(404).json({message: "Contest not found!"});
         }
         await c.populate('createdBy', '_id name isVerified role');      // Population of the creator
         await c.populate({
@@ -76,13 +79,13 @@ exports.createPost = async(req, res) => {
         // Contest Availability Checking
         const contest = await contestModel.findById(contestId);
         if(!contest){
-            return res.status(400).json({message: "No Contest Available!"});
+            return res.status(404).json({message: "No Contest Found"});
         }
 
         // Repeated Participants Avoidance
         const user = contest.participants.includes(req.user) ;
         if(user){
-            return res.status(400).json({message: "You Already Uploaded the Image"})
+            return res.status(409).json({message: "You Already Uploaded the Image"})
         }
         
         // Storing the uploaded image in Cloudinary by requiring the image from the upload.fields([]);
@@ -125,7 +128,9 @@ exports.leaderboard = async(req, res) => {
         if(!contest){
             return res.status(400).json({message: "No Contest Found!"})
         }
-
+        if(!contest.participants.length === 0){
+            return res.json(200).json({message: "No Particpants are there."})
+        }
         let posts = contest.posts.sort((a, b) => (b.vote.length - a.vote.length));
         if(contest.startDate <= new Date() && contest.endDate >= new Date() ){
             return res.status(200).json({contest: contest, posts: posts});
@@ -162,6 +167,36 @@ exports.myContest = async(req, res) => {
         }
 
         res.status(200).json({myContests});
+    }
+    catch(err){
+        console.error("Server Error.\nError: ", err.message);
+        res.status(500).json({err: true, message: "Server Error"}); // Server Error Status
+    }
+}
+
+exports.feed = async(req, res) => {
+    try{
+        const contests = await contestModel.find();
+        
+        let feed = [];
+        let items;
+
+        for(const c of contests){
+            const posts = await postModel.find({contest: c._id});
+            items = {
+                contestId: c._id,
+                posts: posts.map(post => ({
+                    postId: post._id,
+                    caption: post.caption,
+                    imageURL: post.imageURL,
+                    vote: post.vote
+                }))
+            }
+            feed.push(items);
+        }
+        
+
+        res.json({message: "true", feed});
     }
     catch(err){
         console.error("Server Error.\nError: ", err.message);
