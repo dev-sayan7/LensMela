@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar/Navbar';
 
 const Layout = () => {
 
   const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = useState(() => {
     const storedUser = JSON.parse(sessionStorage.getItem('user'));
     return storedUser ? storedUser : null
   });
 
+  const authRoutes = ['/signup', '/signup/verify', '/username'];
 
   useEffect(()=>{
-    if(!user){    
+    if(!user && !authRoutes.includes(location.pathname)){
       const fetchAuth = async() => {
         const response = await fetch('http://localhost:3000/api/users/auth/check',{
           method: 'GET',
@@ -32,7 +34,7 @@ const Layout = () => {
 
   return (
     <div className='w-screen h-screen'>
-        <Navbar user={user} />
+        <Navbar />
         <Outlet />
     </div>
   )

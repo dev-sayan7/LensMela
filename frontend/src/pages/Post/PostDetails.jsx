@@ -41,7 +41,7 @@ const PostDetails = () => {
       const data = await response.json();
       if(response.ok){
         setPost(
-          (prevPosts) => (prevPosts.map(p => (p._id === post._id ? {...p, vote: [...p.vote, userId]} : p )))
+          (prevPosts) => (prevPosts.map({...p, vote: [...p.vote, userId]}))
         )
       }
       alert(data.message);
