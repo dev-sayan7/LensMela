@@ -12,6 +12,8 @@ const Winner = ({user, post}) => {
             <div className='flex flex-col justify-center items-start'>
                 <h1 className='text-[22px] h-[5px] font-extrabold flex justify-center items-center gap-[5px]'>{user.name} {user.isVerified ? <HiBadgeCheck className='text-blue-800 text-2xl ' /> : null}</h1>
                 <p className='mt-[10px] text-gray-500 text-md'>{user.username}</p>
+
+                <p>Congrats, {user.name}</p>
                 {user.role === 'Organizer' ? <p>Contest Organizer</p> : null}
             </div>
       </div>

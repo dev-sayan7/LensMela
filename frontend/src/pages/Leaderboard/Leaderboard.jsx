@@ -44,7 +44,7 @@ const Leaderboard = () => {
   return (
     <div className='pt-[70px] w-full h-full flex flex-col justify-start items-center'>
         {msg && <div className='pt-[70px] w-full h-auto text-center'>{msg}</div>}
-        {(contest || posts.length > 0) && (<>
+        {(contest || posts?.length > 0) && (<>
             <ContestDetail contest={contest} />
             <LeaderboardTable posts={posts} />
         </>)}
